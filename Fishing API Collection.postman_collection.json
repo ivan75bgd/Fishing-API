@@ -1,0 +1,829 @@
+{
+	"info": {
+		"_postman_id": "b30773a9-731d-45c7-8fa5-04c46fe74504",
+		"name": "Fishing API Collection",
+		"description": "A collection of mocked APIs for fishermen to get data about certain fish with varied responses.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25263987"
+	},
+	"item": [
+		{
+			"name": "Get All Fish",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.fishing.com/fish?season={{season}}&habitat={{habitat}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"fishing",
+						"com"
+					],
+					"path": [
+						"fish"
+					],
+					"query": [
+						{
+							"key": "season",
+							"value": "{{season}}",
+							"description": "Filter by season (optional)"
+						},
+						{
+							"key": "habitat",
+							"value": "{{habitat}}",
+							"description": "Filter by habitat (optional)"
+						}
+					]
+				},
+				"description": "Retrieve a list of all fish, optionally filtered by season or habitat."
+			},
+			"response": [
+				{
+					"name": "200 OK - Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Salmon\",\n    \"season\": \"Spring\",\n    \"habitat\": \"River\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Tuna\",\n    \"season\": \"Summer\",\n    \"habitat\": \"Ocean\"\n  }\n]"
+				},
+				{
+					"name": "204 No Content - No Fish Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish?season=Winter",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							],
+							"query": [
+								{
+									"key": "season",
+									"value": "Winter"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "400 Bad Request - Invalid Query Parameter",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish?season=123",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							],
+							"query": [
+								{
+									"key": "season",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Invalid season parameter.\"\n}"
+				},
+				{
+					"name": "500 Internal Server Error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/500",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"500"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"An unexpected error occurred. Please try again later.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Fish by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.fishing.com/fish/{{fishId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"fishing",
+						"com"
+					],
+					"path": [
+						"fish",
+						"{{fishId}}"
+					]
+				},
+				"description": "Retrieve detailed information about a specific fish."
+			},
+			"response": [
+				{
+					"name": "200 OK - Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 1,\n  \"name\": \"Salmon\",\n  \"season\": \"Spring\",\n  \"habitat\": \"River\",\n  \"banPeriod\": \"March-May\",\n  \"basicInfo\": \"A popular freshwater fish.\"\n}"
+				},
+				{
+					"name": "404 Not Found - Fish Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/999",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Fish with ID 999 not found.\"\n}"
+				},
+				{
+					"name": "400 Bad Request - Invalid ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/abc",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"abc"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Invalid fish ID format. ID must be a number.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add New Fish",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Bass\",\n  \"season\": \"Summer\",\n  \"habitat\": \"Lake\",\n  \"banPeriod\": \"June-August\",\n  \"basicInfo\": \"A common fish in lakes.\"\n}"
+				},
+				"url": {
+					"raw": "https://api.fishing.com/fish",
+					"protocol": "https",
+					"host": [
+						"api",
+						"fishing",
+						"com"
+					],
+					"path": [
+						"fish"
+					]
+				},
+				"description": "Add a new fish to the database."
+			},
+			"response": [
+				{
+					"name": "201 Created - Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Bass\",\n  \"season\": \"Summer\",\n  \"habitat\": \"Lake\",\n  \"banPeriod\": \"June-August\",\n  \"basicInfo\": \"A common fish in lakes.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "https://api.fishing.com/fish/3"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 3,\n  \"name\": \"Bass\",\n  \"season\": \"Summer\",\n  \"habitat\": \"Lake\",\n  \"banPeriod\": \"June-August\",\n  \"basicInfo\": \"A common fish in lakes.\"\n}"
+				},
+				{
+					"name": "400 Bad Request - Missing Fields",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Name, season, and habitat are required fields.\"\n}"
+				},
+				{
+					"name": "409 Conflict - Fish Already Exists",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Salmon\",\n  \"season\": \"Spring\",\n  \"habitat\": \"River\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"A fish with the name 'Salmon' already exists.\"\n}"
+				},
+				{
+					"name": "500 Internal Server Error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"season\": \"Summer\",\n  \"habitat\": \"Lake\",\n  \"banPeriod\": \"June-August\",\n  \"basicInfo\": \"A common fish in lakes.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Failed to create new fish. Please try again later.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Fish",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Salmon\",\n  \"season\": \"Autumn\",\n  \"habitat\": \"River\",\n  \"banPeriod\": \"September-November\",\n  \"basicInfo\": \"Updated info about salmon.\"\n}"
+				},
+				"url": {
+					"raw": "https://api.fishing.com/fish/{{fishId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"fishing",
+						"com"
+					],
+					"path": [
+						"fish",
+						"{{fishId}}"
+					]
+				},
+				"description": "Update information about a specific fish."
+			},
+			"response": [
+				{
+					"name": "200 OK - Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Salmon\",\n  \"season\": \"Autumn\",\n  \"habitat\": \"River\",\n  \"banPeriod\": \"September-November\",\n  \"basicInfo\": \"Updated info about salmon.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 1,\n  \"name\": \"Salmon\",\n  \"season\": \"Autumn\",\n  \"habitat\": \"River\",\n  \"banPeriod\": \"September-November\",\n  \"basicInfo\": \"Updated info about salmon.\"\n}"
+				},
+				{
+					"name": "404 Not Found - Fish Not Found",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Unknown Fish\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish/999",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Fish with ID 999 not found.\"\n}"
+				},
+				{
+					"name": "400 Bad Request - Invalid Data",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"season\": \"\",\n  \"habitat\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Name, season, and habitat cannot be empty.\"\n}"
+				},
+				{
+					"name": "409 Conflict - Update Conflict",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Salmon\",\n  \"season\": \"Summer\",\n  \"habitat\": \"Ocean\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.fishing.com/fish/2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"2"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Fish name 'Salmon' is already used by another record.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Fish",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.fishing.com/fish/{{fishId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"fishing",
+						"com"
+					],
+					"path": [
+						"fish",
+						"{{fishId}}"
+					]
+				},
+				"description": "Delete a fish from the database."
+			},
+			"response": [
+				{
+					"name": "204 No Content - Success",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"1"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "404 Not Found - Fish Not Found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/999",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Fish with ID 999 not found.\"\n}"
+				},
+				{
+					"name": "400 Bad Request - Invalid ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/abc",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"abc"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Invalid fish ID format. ID must be a number.\"\n}"
+				},
+				{
+					"name": "500 Internal Server Error",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.fishing.com/fish/500",
+							"protocol": "https",
+							"host": [
+								"api",
+								"fishing",
+								"com"
+							],
+							"path": [
+								"fish",
+								"500"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Failed to delete fish. Please try again later.\"\n}"
+				}
+			]
+		}
+	]
+}
